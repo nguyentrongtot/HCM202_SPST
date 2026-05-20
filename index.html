@@ -1,0 +1,2175 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tư Tưởng Hồ Chí Minh · HCM202</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #070b14;
+        --bg2: #0d1525;
+        --bg3: #111c30;
+        --gold: #c9a84c;
+        --gold-light: #e8c96a;
+        --red: #c0392b;
+        --red-light: #e74c3c;
+        --text: #d4cfc7;
+        --text-dim: #7a7570;
+        --white: #f0ebe3;
+        --border: rgba(201, 168, 76, 0.2);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "DM Sans", sans-serif;
+        font-weight: 300;
+        line-height: 1.8;
+        /* tăng kích thước chữ chung thêm ~2px */
+        font-size: 16px;
+        overflow-x: hidden;
+      }
+
+      /* PROGRESS BAR */
+      #progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--red), var(--gold));
+        width: 0%;
+        z-index: 9999;
+        transition: width 0.1s linear;
+      }
+
+      /* NAV */
+      nav {
+        position: fixed;
+        top: 3px;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        padding: 16px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(7, 11, 20, 0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+        transition: all 0.3s;
+      }
+
+      .nav-brand {
+        font-family: "Playfair Display", serif;
+        font-size: 23px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 28px;
+        list-style: none;
+        font-size: 20px;
+      }
+
+      .nav-links a {
+        font-size: 15px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--gold);
+      }
+
+      /* HERO */
+      #hero {
+        position: relative;
+        height: 100vh;
+        min-height: 700px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse 80% 60% at 50% 80%,
+            rgba(192, 57, 43, 0.18) 0%,
+            transparent 70%
+          ),
+          radial-gradient(
+            ellipse 60% 40% at 20% 20%,
+            rgba(201, 168, 76, 0.12) 0%,
+            transparent 60%
+          ),
+          linear-gradient(180deg, #03060f 0%, #070b14 40%, #0a0d1a 100%);
+      }
+
+      /* Decorative grid lines */
+      .hero-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(201, 168, 76, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(201, 168, 76, 0.04) 1px, transparent 1px);
+        background-size: 60px 60px;
+        mask-image: radial-gradient(
+          ellipse 80% 80% at 50% 50%,
+          black,
+          transparent
+        );
+      }
+
+      /* Star-like dots */
+      .hero-stars {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+
+      .star {
+        position: absolute;
+        border-radius: 50%;
+        background: var(--gold);
+        opacity: 0;
+        animation: twinkle var(--dur) ease-in-out infinite var(--delay);
+      }
+
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+        50% {
+          opacity: var(--op);
+          transform: scale(1);
+        }
+      }
+
+      .hero-tag {
+        font-size: 15px;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 28px;
+        opacity: 0;
+        animation: fadeUp 1s ease 0.3s forwards;
+      }
+
+      .hero-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(52px, 8vw, 110px);
+        font-weight: 900;
+        line-height: 0.95;
+        text-align: center;
+        color: var(--white);
+        margin-bottom: 8px;
+        opacity: 0;
+        animation: fadeUp 1s ease 0.5s forwards;
+      }
+
+      .hero-title span {
+        display: block;
+        background: linear-gradient(
+          135deg,
+          var(--gold-light),
+          var(--gold),
+          var(--red-light)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .hero-sub {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(16px, 2.5vw, 24px);
+        font-style: italic;
+        color: var(--text-dim);
+        letter-spacing: 2px;
+        text-align: center;
+        margin-bottom: 52px;
+        opacity: 0;
+        animation: fadeUp 1s ease 0.7s forwards;
+        color: #4cc9ae;
+        font-size: 30px;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+        opacity: 0;
+        animation: fadeUp 1s ease 0.9s forwards;
+      }
+
+      .btn-primary {
+        padding: 14px 32px;
+        background: linear-gradient(135deg, var(--red), #9b2335);
+        color: var(--white);
+        font-size: 12px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.2s;
+        clip-path: polygon(
+          0 0,
+          calc(100% - 12px) 0,
+          100% 12px,
+          100% 100%,
+          12px 100%,
+          0 calc(100% - 12px)
+        );
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-outline {
+        padding: 14px 32px;
+        background: transparent;
+        color: var(--gold);
+        font-size: 12px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        border: 1px solid var(--gold);
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .btn-outline:hover {
+        background: rgba(201, 168, 76, 0.1);
+        transform: translateY(-2px);
+      }
+
+      .play-icon {
+        width: 18px;
+        height: 18px;
+        border: 1.5px solid var(--gold);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .play-icon::after {
+        content: "";
+        width: 0;
+        height: 0;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-left: 8px solid var(--gold);
+        margin-left: 2px;
+      }
+
+      .scroll-hint {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        opacity: 0;
+        animation: fadeUp 1s ease 1.2s forwards;
+      }
+
+      .scroll-hint span {
+        font-size: 10px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--text-dim);
+      }
+
+      .scroll-line {
+        width: 1px;
+        height: 50px;
+        background: linear-gradient(var(--gold), transparent);
+        animation: scrollPulse 2s ease-in-out infinite;
+      }
+
+      @keyframes scrollPulse {
+        0% {
+          transform: scaleY(0);
+          transform-origin: top;
+        }
+        50% {
+          transform: scaleY(1);
+          transform-origin: top;
+        }
+        51% {
+          transform: scaleY(1);
+          transform-origin: bottom;
+        }
+        100% {
+          transform: scaleY(0);
+          transform-origin: bottom;
+        }
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* HERO VIDEO BG */
+      #hero-video-bg {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        opacity: 0;
+        transition: opacity 0.8s ease;
+        pointer-events: none;
+      }
+      #hero-video-bg.visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      #hero-video-bg video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      #hero-video-bg::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.35) 0%,
+          rgba(0, 0, 0, 0.15) 50%,
+          rgba(0, 0, 0, 0.5) 100%
+        );
+      }
+
+      /* HERO CONTENT — split animation */
+      #hero-content {
+        position: relative;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        transition: none;
+      }
+
+      /* Each child gets split-out class */
+      .hero-split-left {
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .hero-split-right {
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .hero-split-up {
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+
+      /* When video playing — apply transforms */
+      #hero-content.video-playing .hero-tag {
+        opacity: 0 !important;
+        transform: translateY(-60px) !important;
+        transition:
+          opacity 0.6s ease,
+          transform 0.7s ease !important;
+      }
+      #hero-content.video-playing .hero-title {
+        opacity: 0 !important;
+        transition: opacity 0.6s ease 0.08s !important;
+      }
+      #hero-content.video-playing .hero-title-left {
+        transform: translateX(-120px) !important;
+        transition:
+          opacity 0.6s ease 0.08s,
+          transform 0.7s ease 0.08s !important;
+      }
+      #hero-content.video-playing .hero-title-right {
+        transform: translateX(120px) !important;
+        transition:
+          opacity 0.6s ease 0.08s,
+          transform 0.7s ease 0.08s !important;
+      }
+      #hero-content.video-playing .hero-sub {
+        opacity: 0 !important;
+        transform: translateX(100px) !important;
+        transition:
+          opacity 0.5s ease 0.15s,
+          transform 0.6s ease 0.15s !important;
+      }
+      #hero-content.video-playing .hero-actions {
+        opacity: 0 !important;
+        transform: translateX(-100px) !important;
+        transition:
+          opacity 0.5s ease 0.2s,
+          transform 0.6s ease 0.2s !important;
+      }
+      #hero-content.video-playing .scroll-hint-inner {
+        opacity: 0 !important;
+        transform: translateY(40px) !important;
+        transition:
+          opacity 0.4s ease 0.1s,
+          transform 0.5s ease 0.1s !important;
+      }
+
+      /* Return animation */
+      #hero-content.video-ended .hero-tag,
+      #hero-content.video-ended .hero-title,
+      #hero-content.video-ended .hero-sub,
+      #hero-content.video-ended .hero-actions,
+      #hero-content.video-ended .scroll-hint-inner {
+        animation: none !important;
+      }
+
+      /* VIDEO CONTROLS */
+      #video-controls {
+        position: absolute;
+        bottom: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.5s ease 0.6s;
+        background: rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(201, 168, 76, 0.25);
+        padding: 12px 24px;
+        border-radius: 50px;
+      }
+      #video-controls.visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .vc-btn {
+        background: none;
+        border: none;
+        color: var(--white);
+        cursor: pointer;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition:
+          background 0.2s,
+          color 0.2s;
+        flex-shrink: 0;
+      }
+      .vc-btn:hover {
+        background: rgba(201, 168, 76, 0.2);
+        color: var(--gold);
+      }
+      .vc-btn svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      #vc-progress-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      #vc-time {
+        font-size: 11px;
+        color: var(--text-dim);
+        letter-spacing: 1px;
+        white-space: nowrap;
+        min-width: 80px;
+        text-align: center;
+      }
+      #vc-bar {
+        width: 160px;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 2px;
+        cursor: pointer;
+        position: relative;
+        flex-shrink: 0;
+      }
+      #vc-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--red), var(--gold));
+        border-radius: 2px;
+        width: 0%;
+        pointer-events: none;
+      }
+      #vc-bar:hover #vc-fill {
+        filter: brightness(1.2);
+      }
+
+      /* VIDEO LIGHTBOX — removed, replaced by in-hero */
+
+      /* TABLE OF CONTENTS */
+      #toc {
+        padding: 80px 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .section-label {
+        font-size: 20px;
+        letter-spacing: 6px;
+        text-transform: uppercase;
+        color: var(--white);
+        margin-bottom: 40px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .section-label::before {
+        content: "";
+        display: block;
+        width: 40px;
+        height: 1px;
+        background: var(--gold);
+      }
+
+      .toc-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      .toc-item {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 32px;
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        text-decoration: none;
+        transition:
+          border-color 0.35s ease,
+          box-shadow 0.35s ease,
+          transform 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .toc-item::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: var(--gold);
+        border-radius: 3px 0 0 3px;
+        transform: scaleY(0);
+        transition: transform 0.3s;
+      }
+
+      .toc-item:hover {
+        background: var(--bg3);
+        border-color: rgba(201, 168, 76, 0.55);
+        transform: translateY(-4px);
+        box-shadow:
+          0 0 0 1px rgba(201, 168, 76, 0.2),
+          0 0 24px rgba(201, 168, 76, 0.18),
+          0 0 60px rgba(201, 168, 76, 0.1),
+          0 16px 48px rgba(0, 0, 0, 0.5);
+      }
+      .toc-item:hover::before {
+        transform: scaleY(1);
+      }
+
+      .toc-roman {
+        font-family: "Playfair Display", serif;
+        font-size: 32px;
+        font-weight: 900;
+        color: rgba(201, 168, 76, 0.25);
+        line-height: 1;
+        flex-shrink: 0;
+        margin-top: -4px;
+      }
+
+      .toc-text {
+        flex: 1;
+      }
+
+      .toc-title {
+        font-family: "Playfair Display", serif;
+        font-size: 17px;
+        color: var(--white);
+        margin-bottom: 6px;
+      }
+
+      .toc-desc {
+        font-size: 18px;
+        color: var(--text-dim);
+        line-height: 1.5;
+      }
+
+      .toc-arrow {
+        color: var(--gold);
+        font-size: 18px;
+        opacity: 0;
+        transition:
+          opacity 0.2s,
+          transform 0.2s;
+        flex-shrink: 0;
+        align-self: center;
+      }
+      .toc-item:hover .toc-arrow {
+        opacity: 1;
+        transform: translateX(4px);
+      }
+
+      /* DIVIDER */
+      .divider {
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+        margin: 0;
+        opacity: 0.3;
+      }
+
+      /* CONTENT SECTIONS */
+      .content-section {
+        padding: 100px 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .full-section {
+        padding: 80px 0;
+        border-top: 1px solid rgba(201, 168, 76, 0.1);
+      }
+
+      .section-header {
+        text-align: center;
+        padding: 0 40px 60px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .section-num {
+        font-size: 15px;
+        letter-spacing: 5px;
+        color: var(--red);
+        text-transform: uppercase;
+        margin-bottom: 16px;
+        display: block;
+      }
+
+      .section-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(36px, 5vw, 60px);
+        font-weight: 700;
+        color: var(--white);
+        line-height: 1.1;
+        margin-bottom: 20px;
+      }
+      .section-title .line {
+        display: block;
+        white-space: nowrap;
+        word-break: keep-all;
+      }
+
+      .section-intro {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 30px;
+        color: var(--text-dim);
+        font-style: italic;
+        line-height: 1.7;
+        color: #d4cfc7;
+      }
+
+      /* THREE PILLARS */
+      .pillars {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin: 0 40px;
+      }
+
+      .pillar {
+        background: var(--bg2);
+        padding: 40px 32px;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        position: relative;
+        overflow: hidden;
+        transition:
+          border-color 0.35s ease,
+          box-shadow 0.35s ease,
+          transform 0.3s ease;
+      }
+
+      .pillar:hover {
+        border-color: rgba(201, 168, 76, 0.55);
+        transform: translateY(-4px);
+        box-shadow:
+          0 0 0 1px rgba(201, 168, 76, 0.2),
+          0 0 24px rgba(201, 168, 76, 0.18),
+          0 0 60px rgba(201, 168, 76, 0.1),
+          0 16px 48px rgba(0, 0, 0, 0.5);
+      }
+
+      .pillar::after {
+        content: attr(data-num);
+        position: absolute;
+        right: -10px;
+        bottom: -20px;
+        font-family: "Playfair Display", serif;
+        font-size: 100px;
+        font-weight: 900;
+        color: rgba(201, 168, 76, 0.05);
+        line-height: 1;
+        pointer-events: none;
+      }
+
+      .pillar-icon {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 24px;
+        color: var(--gold);
+      }
+
+      .pillar-tag {
+        font-size: 20px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 12px;
+      }
+
+      .pillar-title {
+        font-family: "Playfair Display", serif;
+        font-size: 27px;
+        color: var(--white);
+        margin-bottom: 16px;
+        line-height: 1.2;
+      }
+
+      .pillar-text {
+        font-size: 19px;
+        color: var(--text-dim);
+        line-height: 1.8;
+        color: white;
+      }
+
+      /* QUOTE */
+      .quote-section {
+        background: linear-gradient(135deg, var(--bg2), var(--bg3));
+        padding: 80px 40px;
+        text-align: center;
+        border-top: 1px solid rgba(201, 168, 76, 0.1);
+        border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .quote-section::before {
+        content: "\201C";
+        position: absolute;
+        top: -60px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Playfair Display", serif;
+        font-size: 400px;
+        color: rgba(201, 168, 76, 0.04);
+        line-height: 1;
+        pointer-events: none;
+      }
+
+      .quote-text {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(22px, 3.5vw, 38px);
+        font-style: italic;
+        color: var(--white);
+        max-width: 800px;
+        margin: 0 auto 24px;
+        line-height: 1.5;
+        position: relative;
+        z-index: 1;
+      }
+
+      .quote-highlight {
+        color: var(--gold);
+      }
+
+      .quote-author {
+        font-size: 17px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        position: relative;
+        z-index: 1;
+      }
+
+      .quote-author::before {
+        content: "— ";
+        color: var(--red);
+      }
+
+      /* CARDS GRID */
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin: 40px;
+      }
+
+      .card {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 36px;
+        transition:
+          border-color 0.35s ease,
+          box-shadow 0.35s ease,
+          transform 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card:hover {
+        border-color: rgba(201, 168, 76, 0.55);
+        transform: translateY(-4px);
+        box-shadow:
+          0 0 0 1px rgba(201, 168, 76, 0.2),
+          0 0 24px rgba(201, 168, 76, 0.18),
+          0 0 60px rgba(201, 168, 76, 0.1),
+          0 16px 48px rgba(0, 0, 0, 0.5);
+      }
+
+      .card-icon {
+        width: 36px;
+        height: 36px;
+        color: var(--gold);
+        margin-bottom: 16px;
+      }
+
+      .card-title {
+        font-family: "Playfair Display", serif;
+        font-size: 23px;
+        color: var(--gold);
+        margin-bottom: 12px;
+      }
+
+      .card-text {
+        font-size: 23px;
+        color: var(--text-dim);
+        line-height: 1.8;
+        color: whitesmoke;
+      }
+
+      /* WARNING BOX */
+      .warning-box {
+        background: rgba(192, 57, 43, 0.08);
+        border: 1px solid rgba(192, 57, 43, 0.3);
+        border-left: 3px solid var(--red);
+        border-radius: 14px;
+        padding: 28px 32px;
+        margin: 20px 40px;
+        transition: box-shadow 0.35s ease;
+      }
+
+      .warning-box:hover {
+        box-shadow:
+          0 0 24px rgba(192, 57, 43, 0.2),
+          0 0 60px rgba(192, 57, 43, 0.08);
+      }
+
+      .warning-title {
+        font-family: "Playfair Display", serif;
+        font-size: 21px;
+        color: var(--red-light);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .warning-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .warning-list li {
+        font-size: 19px;
+        color: var(--text-dim);
+        padding-left: 20px;
+        position: relative;
+      }
+
+      .warning-list li::before {
+        content: "›";
+        position: absolute;
+        left: 0;
+        color: var(--red);
+      }
+
+      /* PRACTICAL SECTION */
+      .practical-section {
+        background: linear-gradient(135deg, #0a1628, #0d1f3c);
+        border: 1px solid rgba(201, 168, 76, 0.2);
+        border-radius: 16px;
+        padding: 48px;
+        margin: 40px;
+        position: relative;
+        overflow: hidden;
+        transition:
+          border-color 0.35s ease,
+          box-shadow 0.35s ease;
+      }
+
+      .practical-section:hover {
+        border-color: rgba(201, 168, 76, 0.45);
+        box-shadow:
+          0 0 24px rgba(201, 168, 76, 0.12),
+          0 0 60px rgba(201, 168, 76, 0.07),
+          0 12px 40px rgba(0, 0, 0, 0.4);
+      }
+
+      .practical-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          var(--gold),
+          var(--red),
+          var(--gold)
+        );
+      }
+
+      .practical-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+
+      .practical-icon {
+        width: 40px;
+        height: 40px;
+        background: rgba(201, 168, 76, 0.1);
+        border: 1px solid var(--gold);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .practical-title {
+        font-family: "Playfair Display", serif;
+        font-size: 25px;
+        color: var(--gold);
+      }
+
+      .practical-text {
+        font-size: 20px;
+        color: var(--text-dim);
+        line-height: 1.9;
+        color: whitesmoke;
+      }
+
+      /* PARTY BUILDING SECTION */
+      .five-pillars {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin: 40px;
+      }
+
+      .pillar-row {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 24px 32px;
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        transition:
+          border-color 0.35s ease,
+          box-shadow 0.35s ease,
+          transform 0.3s ease;
+      }
+
+      .pillar-row:hover {
+        background: var(--bg3);
+        border-color: rgba(193, 201, 76, 0.5);
+        transform: translateX(4px);
+        box-shadow:
+          0 0 0 1px rgba(201, 168, 76, 0.15),
+          0 0 20px rgba(201, 168, 76, 0.15),
+          0 0 50px rgba(201, 168, 76, 0.07),
+          0 8px 32px rgba(0, 0, 0, 0.4);
+      }
+
+      .pillar-num {
+        font-family: "Playfair Display", serif;
+        font-size: 35px;
+        font-weight: 700;
+        color: rgba(229, 245, 10, 0.3);
+        line-height: 1;
+        flex-shrink: 0;
+        width: 40px;
+        text-align: right;
+      }
+
+      .pillar-content {
+        flex: 1;
+      }
+
+      .pillar-name {
+        font-family: "Playfair Display", serif;
+        font-size: 23px;
+        color: var(--white);
+        margin-bottom: 8px;
+      }
+
+      .pillar-detail {
+        font-size: 19px;
+        color: var(--text-dim);
+        line-height: 1.7;
+      }
+
+      /* ANTI-CORRUPTION */
+      .ac-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin: 40px;
+      }
+
+      .ac-card {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 36px;
+        transition:
+          border-color 0.35s ease,
+          box-shadow 0.35s ease,
+          transform 0.3s ease;
+      }
+
+      .ac-card:hover {
+        border-color: rgba(201, 168, 76, 0.5);
+        transform: translateY(-4px);
+        box-shadow:
+          0 0 0 1px rgba(201, 168, 76, 0.18),
+          0 0 24px rgba(201, 168, 76, 0.18),
+          0 0 60px rgba(201, 168, 76, 0.09),
+          0 16px 48px rgba(0, 0, 0, 0.5);
+      }
+
+      .ac-num {
+        font-family: "Playfair Display", serif;
+        font-size: 48px;
+        font-weight: 900;
+        color: rgba(192, 57, 43, 0.15);
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+
+      .ac-title {
+        font-size: 23px;
+        font-weight: 500;
+        color: var(--gold);
+        letter-spacing: 1px;
+        margin-bottom: 12px;
+      }
+
+      .ac-text {
+        font-size: 18px;
+        color: var(--text-dim);
+        line-height: 1.8;
+        color: whitesmoke;
+      }
+
+      /* MOTTO BANNER */
+      .motto-banner {
+        background: linear-gradient(135deg, var(--red) 0%, #8b1a1a 100%);
+        padding: 60px 40px;
+        text-align: center;
+      }
+
+      .motto-text {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(18px, 3vw, 28px);
+        color: var(--white);
+        line-height: 1.6;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .motto-highlight {
+        color: var(--gold-light);
+        font-style: italic;
+      }
+
+      /* FOOTER */
+      footer {
+        background: #030508;
+        border-top: 1px solid rgba(201, 168, 76, 0.15);
+        padding: 48px 40px 32px;
+        text-align: center;
+      }
+
+      .footer-logo {
+        font-family: "Playfair Display", serif;
+        font-size: 28px;
+        color: var(--gold);
+        margin-bottom: 8px;
+      }
+
+      .footer-sub {
+        font-size: 15px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        margin-bottom: 32px;
+      }
+
+      .footer-divider {
+        width: 60px;
+        height: 1px;
+        background: var(--gold);
+        margin: 0 auto 24px;
+        opacity: 0.3;
+      }
+
+      .footer-info {
+        font-size: 15px;
+        color: var(--text-dim);
+        letter-spacing: 2px;
+      }
+
+      /* SCROLL ANIMATIONS */
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition:
+          opacity 0.8s ease,
+          transform 0.8s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .reveal-left {
+        opacity: 0;
+        transform: translateX(-40px);
+        transition:
+          opacity 0.8s ease,
+          transform 0.8s ease;
+      }
+
+      .reveal-left.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .delay-1 {
+        transition-delay: 0.1s;
+      }
+      .delay-2 {
+        transition-delay: 0.2s;
+      }
+      .delay-3 {
+        transition-delay: 0.3s;
+      }
+      .delay-4 {
+        transition-delay: 0.4s;
+      }
+      .delay-5 {
+        transition-delay: 0.5s;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 768px) {
+        nav {
+          padding: 14px 20px;
+        }
+        .nav-links {
+          display: none;
+        }
+        .toc-grid,
+        .pillars,
+        .cards-grid,
+        .ac-grid {
+          grid-template-columns: 1fr;
+        }
+        .pillars,
+        .cards-grid,
+        .ac-grid,
+        .five-pillars,
+        .warning-box,
+        .practical-section {
+          margin: 20px;
+        }
+        .content-section {
+          padding: 60px 20px;
+        }
+        .section-header {
+          padding: 0 20px 40px;
+        }
+        .toc-grid {
+          margin: 0 20px;
+        }
+        .quote-section {
+          padding: 60px 20px;
+        }
+        .motto-banner {
+          padding: 40px 20px;
+        }
+        footer {
+          padding: 40px 20px 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="progress-bar"></div>
+
+    <nav id="navbar">
+      <div class="nav-brand">HCM202 · Chương 4</div>
+      <ul class="nav-links">
+        <li><a href="#section-42">Nhà nước</a></li>
+        <li><a href="#section-423">Trong sạch</a></li>
+        <li><a href="#section-43">Vận dụng</a></li>
+        <li><a href="#section-433">Phòng chống</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-grid"></div>
+      <div class="hero-stars" id="stars"></div>
+
+      <!-- Local video background layer -->
+      <div id="hero-video-bg">
+        <video
+          id="hero-video"
+          src="./video/shortvideo.mp4"
+          preload="metadata"
+          playsinline
+        ></video>
+      </div>
+
+      <!-- All hero text wrapped for split animation -->
+      <div id="hero-content">
+        <div class="hero-tag">Sản phẩm học tập · HCM202 · Chương 4</div>
+        <h1 class="hero-title">
+          <span class="hero-title-left">Tư Tưởng</span><br />
+          <span
+            class="hero-title-right"
+            style="
+              display: block;
+              background: linear-gradient(
+                135deg,
+                var(--gold-light),
+                var(--gold),
+                var(--red-light)
+              );
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+            "
+            >Hồ Chí Minh</span
+          >
+        </h1>
+        <p class="hero-sub">
+          Nhà nước của Dân &nbsp;·&nbsp; Do Dân &nbsp;·&nbsp; Vì Dân
+        </p>
+
+        <div class="hero-actions">
+          <a href="#section-42" class="btn-primary">Bắt đầu khám phá &nbsp;›</a>
+          <button class="btn-outline" onclick="openVideo()">
+            <span class="play-icon"></span>
+            Phát video
+          </button>
+        </div>
+
+        <div class="scroll-hint">
+          <div
+            class="scroll-hint-inner"
+            style="
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 8px;
+            "
+          >
+            <div class="scroll-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video controls (shown only when video plays) -->
+      <div id="video-controls">
+        <button class="vc-btn" id="vc-rewind" title="Tua lại 10s">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <polyline points="1 4 1 10 7 10" />
+            <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
+            <text
+              x="9"
+              y="15"
+              font-size="6"
+              fill="currentColor"
+              stroke="none"
+              font-family="sans-serif"
+            >
+              10
+            </text>
+          </svg>
+        </button>
+        <button class="vc-btn" id="vc-playpause" title="Phát / Dừng">
+          <svg id="vc-play-icon" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3" />
+          </svg>
+          <svg
+            id="vc-pause-icon"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            style="display: none"
+          >
+            <rect x="6" y="4" width="4" height="16" />
+            <rect x="14" y="4" width="4" height="16" />
+          </svg>
+        </button>
+        <button class="vc-btn" id="vc-forward" title="Tua tới 10s">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <polyline points="23 4 23 10 17 10" />
+            <path d="M20.49 15a9 9 0 1 1-.49-3.5" />
+            <text
+              x="9"
+              y="15"
+              font-size="6"
+              fill="currentColor"
+              stroke="none"
+              font-family="sans-serif"
+            >
+              10
+            </text>
+          </svg>
+        </button>
+        <div id="vc-progress-wrap">
+          <div id="vc-bar"><div id="vc-fill"></div></div>
+          <div id="vc-time">0:00 / 0:00</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TABLE OF CONTENTS -->
+    <div id="toc" class="content-section">
+      <div class="section-label"><strong>Nội dung chính</strong></div>
+      <div class="toc-grid">
+        <a href="#section-42" class="toc-item reveal">
+          <div class="toc-roman">I</div>
+          <div class="toc-text">
+            <div class="toc-title">Nhà nước của dân, do dân, vì dân</div>
+            <div class="toc-desc">
+              Ba tiêu chí cốt lõi của nhà nước kiểu mới theo tư tưởng Hồ Chí
+              Minh
+            </div>
+          </div>
+          <div class="toc-arrow">›</div>
+        </a>
+        <a href="#section-423" class="toc-item reveal delay-1">
+          <div class="toc-roman">II</div>
+          <div class="toc-text">
+            <div class="toc-title">Nhà nước trong sạch, vững mạnh</div>
+            <div class="toc-desc">
+              Kiểm soát quyền lực, phòng chống tiêu cực và xây dựng đội ngũ cán
+              bộ
+            </div>
+          </div>
+          <div class="toc-arrow">›</div>
+        </a>
+        <a href="#section-43" class="toc-item reveal delay-2">
+          <div class="toc-roman">III</div>
+          <div class="toc-text">
+            <div class="toc-title">Vận dụng vào xây dựng Đảng & Nhà nước</div>
+            <div class="toc-desc">
+              5 mặt xây dựng Đảng và 4 nội dung xây dựng Nhà nước pháp quyền
+              XHCN
+            </div>
+          </div>
+          <div class="toc-arrow">›</div>
+        </a>
+        <a href="#section-433" class="toc-item reveal delay-3">
+          <div class="toc-roman">IV</div>
+          <div class="toc-text">
+            <div class="toc-title">Phòng, chống tham nhũng</div>
+            <div class="toc-desc">
+              Củng cố niềm tin của nhân dân vào chế độ và pháp luật
+            </div>
+          </div>
+          <div class="toc-arrow">›</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 4.2 -->
+    <section id="section-42" class="full-section">
+      <div class="section-header reveal">
+        <span class="section-num"><strong>Phân tích · Mục 4.2</strong></span>
+        <h2 class="section-title">
+          Tư Tưởng về Nhà Nước<br />Của Dân, Do Dân, Vì Dân
+        </h2>
+        <p class="section-intro">
+          Theo Hồ Chí Minh, nhà nước kiểu mới phải mang bản chất giai cấp công
+          nhân, thống nhất với tính nhân dân và tính dân tộc.
+        </p>
+      </div>
+
+      <div class="pillars">
+        <div class="pillar reveal delay-1" data-num="01">
+          <svg
+            class="pillar-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+          <div class="pillar-tag">Thuộc tính 1</div>
+          <h3 class="pillar-title">Nhà nước của nhân dân</h3>
+          <p class="pillar-text">
+            Tất cả mọi quyền lực trong nhà nước và xã hội đều thuộc về nhân dân.
+            Nhân dân là người chủ tối cao, thực thi quyền lực thông qua dân chủ
+            trực tiếp và dân chủ đại diện. Nhân dân có quyền kiểm soát nhà nước
+            và bãi miễn những đại biểu không còn xứng đáng.
+          </p>
+        </div>
+        <div class="pillar reveal delay-2" data-num="02">
+          <svg
+            class="pillar-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+            <line x1="9" y1="3" x2="9" y2="21" />
+            <line x1="15" y1="3" x2="15" y2="21" />
+            <line x1="3" y1="9" x2="21" y2="9" />
+            <line x1="3" y1="15" x2="21" y2="15" />
+          </svg>
+          <div class="pillar-tag">Thuộc tính 2</div>
+          <h3 class="pillar-title">Nhà nước do nhân dân</h3>
+          <p class="pillar-text">
+            Nhà nước do nhân dân lập nên thông qua bầu cử dân chủ và được nhân
+            dân ủng hộ, đóng góp để duy trì hoạt động. Các cơ quan nhà nước phải
+            dựa vào dân, liên hệ chặt chẽ và lắng nghe ý kiến nhân dân.
+          </p>
+        </div>
+        <div class="pillar reveal delay-3" data-num="03">
+          <svg
+            class="pillar-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+            />
+          </svg>
+          <div class="pillar-tag">Thuộc tính 3</div>
+          <h3 class="pillar-title">Nhà nước vì nhân dân</h3>
+          <p class="pillar-text">
+            Nhà nước phục vụ lợi ích và nguyện vọng chính đáng của nhân dân,
+            không có đặc quyền đặc lợi. Cán bộ, công chức nhà nước phải là "công
+            bộc", là "đày tớ" trung thành của nhân dân.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUOTE -->
+    <div class="quote-section reveal">
+      <p class="quote-text">
+        <span class="quote-highlight"
+          >"Việc gì có lợi cho dân, ta phải hết sức làm.</span
+        ><br />
+        Việc gì hại đến dân, ta phải hết sức tránh."
+      </p>
+      <div class="quote-author">Hồ Chí Minh</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 4.2.3 -->
+    <section id="section-423" class="full-section">
+      <div class="section-header reveal">
+        <span class="section-num"><strong>Phân tích · Mục 4.2.3</strong></span>
+        <h2 class="section-title">Nhà Nước Trong Sạch,<br />Vững Mạnh</h2>
+        <p class="section-intro">
+          Hồ Chí Minh đặc biệt chú trọng xây dựng bộ máy nhà nước hoạt động hiệu
+          lực và hiệu quả với ba biện pháp cơ bản.
+        </p>
+      </div>
+
+      <div class="cards-grid">
+        <div class="card reveal delay-1">
+          <svg
+            class="card-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+          <h3 class="card-title">Kiểm soát quyền lực nhà nước</h3>
+          <p class="card-text">
+            Quyền lực nhà nước là do nhân dân ủy thác. Phải có cơ chế kiểm soát
+            quyền lực chặt chẽ từ phía Đảng, các cơ quan nhà nước và đặc biệt từ
+            phía nhân dân để đảm bảo quyền lực được sử dụng đúng mục đích.
+          </p>
+        </div>
+        <div class="card reveal delay-2">
+          <svg
+            class="card-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
+          </svg>
+          <h3 class="card-title">Phòng, chống tiêu cực</h3>
+          <p class="card-text">
+            Kiên quyết loại trừ các căn bệnh nguy hiểm: đặc quyền đặc lợi, tham
+            ô lãng phí quan liêu ("giặc nội xâm"), và các thói "tư túng, chia
+            rẽ, kiêu ngạo" làm mất lòng tin nhân dân.
+          </p>
+        </div>
+        <div class="card reveal delay-3">
+          <svg
+            class="card-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+            <polyline points="22 4 12 14.01 9 11.01" />
+          </svg>
+          <h3 class="card-title">Cán bộ "vừa hồng, vừa chuyên"</h3>
+          <p class="card-text">
+            Đức là gốc. Cán bộ phải tuyệt đối trung thành, có trách nhiệm cao,
+            thạo việc và không ngừng học tập. Nhà nước thực hiện "dụng nhân như
+            dụng mộc" — tuyển chọn, đào tạo, đánh giá đúng năng lực sở trường.
+          </p>
+        </div>
+        <div class="card reveal delay-4">
+          <svg
+            class="card-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+          </svg>
+          <h3 class="card-title">Hiệu lực & hiệu quả</h3>
+          <p class="card-text">
+            Bộ máy nhà nước phải hoạt động hiệu lực, hiệu quả thực sự — không
+            phải hình thức. Mọi hoạt động phải hướng đến phục vụ lợi ích nhân
+            dân, không phải phục vụ lợi ích cá nhân hay nhóm lợi ích.
+          </p>
+        </div>
+      </div>
+
+      <div class="warning-box reveal">
+        <div class="warning-title">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+            />
+            <line x1="12" y1="9" x2="12" y2="13" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
+          </svg>
+          Những "căn bệnh" nguy hiểm cần kiên quyết loại trừ
+        </div>
+        <ul class="warning-list">
+          <li>
+            <strong style="color: var(--text)">Đặc quyền, đặc lợi:</strong> Cán
+            bộ không được lợi dụng chức quyền để mưu cầu lợi ích cá nhân hay bao
+            che người thân — nhà nước không phải để "làm quan phát tài"
+          </li>
+          <li>
+            <strong style="color: var(--text)"
+              >Tham ô, lãng phí, quan liêu:</strong
+            >
+            "Giặc nội xâm", đồng minh của thực dân phong kiến — tham ô là trộm
+            cắp của công; quan liêu là nguyên nhân trực tiếp sinh ra tham ô,
+            lãng phí
+          </li>
+          <li>
+            <strong style="color: var(--text)"
+              >"Tư túng, chia rẽ, kiêu ngạo":</strong
+            >
+            Làm suy giảm uy tín Đảng, Nhà nước, phá vỡ khối đại đoàn kết và làm
+            mất lòng tin nhân dân
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 4.3 -->
+    <section id="section-43" class="full-section">
+      <div class="section-header reveal">
+        <span class="section-num"><strong>Vận dụng · Mục 4.3.1</strong></span>
+        <h2 class="section-title">
+          Xây Dựng Đảng<br />Thật Sự Trong Sạch, Vững Mạnh
+        </h2>
+        <p class="section-intro">
+          Theo Văn kiện Đại hội XIII, việc vận dụng tư tưởng Hồ Chí Minh được
+          triển khai toàn diện trên 5 mặt cơ bản.
+        </p>
+      </div>
+
+      <div class="five-pillars">
+        <div class="pillar-row reveal">
+          <div class="pillar-num">01</div>
+          <div class="pillar-content">
+            <div class="pillar-name">Xây dựng Đảng về chính trị</div>
+            <div class="pillar-detail">
+              Kiên định chủ nghĩa Mác–Lênin, tư tưởng Hồ Chí Minh; kiên định mục
+              tiêu độc lập dân tộc gắn với chủ nghĩa xã hội; không ngừng nâng
+              cao bản lĩnh chính trị và năng lực hoạch định đường lối của Đảng.
+            </div>
+          </div>
+        </div>
+        <div class="pillar-row reveal delay-1">
+          <div class="pillar-num">02</div>
+          <div class="pillar-content">
+            <div class="pillar-name">Xây dựng Đảng về tư tưởng</div>
+            <div class="pillar-detail">
+              Đấu tranh phản bác quan điểm sai trái, thù địch; kiên quyết ngăn
+              chặn đẩy lùi tình trạng suy thoái tư tưởng chính trị, đạo đức, lối
+              sống và biểu hiện "tự diễn biến, tự chuyển hóa" trong nội bộ.
+            </div>
+          </div>
+        </div>
+        <div class="pillar-row reveal delay-2">
+          <div class="pillar-num">03</div>
+          <div class="pillar-content">
+            <div class="pillar-name">Xây dựng Đảng về đạo đức</div>
+            <div class="pillar-detail">
+              Đề cao trách nhiệm nêu gương của cán bộ, đảng viên, nhất là người
+              đứng đầu. Kiên quyết đấu tranh chống chủ nghĩa cá nhân, xây dựng
+              văn hóa chính trị trong Đảng.
+            </div>
+          </div>
+        </div>
+        <div class="pillar-row reveal delay-3">
+          <div class="pillar-num">04</div>
+          <div class="pillar-content">
+            <div class="pillar-name">Xây dựng Đảng về tổ chức và cán bộ</div>
+            <div class="pillar-detail">
+              Thực hiện nghiêm nguyên tắc tập trung dân chủ và tự phê bình phê
+              bình. Tập trung xây dựng đội ngũ cán bộ cấp chiến lược đủ phẩm
+              chất, năng lực và uy tín ngang tầm nhiệm vụ.
+            </div>
+          </div>
+        </div>
+        <div class="pillar-row reveal delay-4">
+          <div class="pillar-num">05</div>
+          <div class="pillar-content">
+            <div class="pillar-name">
+              Tăng cường kiểm tra, giám sát, kỷ luật đảng
+            </div>
+            <div class="pillar-detail">
+              Giữ nghiêm kỷ luật, kỷ cương. Xử lý kịp thời, nghiêm minh những vi
+              phạm, đảm bảo phương châm
+              <em style="color: var(--gold)"
+                >"không có vùng cấm, không có ngoại lệ"</em
+              >. Lấy dân làm gốc — dựa vào nhân dân để xây dựng Đảng.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBSECTION 4.3.2 -->
+      <div class="section-header reveal" style="margin-top: 80px">
+        <span class="section-num"><strong>Vận dụng · Mục 4.3.2</strong></span>
+        <h2 class="section-title">Xây Dựng Nhà Nước<br />Pháp Quyền XHCN</h2>
+      </div>
+
+      <div class="ac-grid">
+        <div class="ac-card reveal">
+          <div class="ac-num">01</div>
+          <div class="ac-title">
+            Nhà nước pháp quyền của dân, do dân, vì dân
+          </div>
+          <div class="ac-text">
+            Bảo đảm mọi quyền lực thuộc về nhân dân. Tăng cường pháp chế XHCN,
+            quản lý xã hội bằng pháp luật và bảo đảm mọi tổ chức, cá nhân bình
+            đẳng trước pháp luật.
+          </div>
+        </div>
+        <div class="ac-card reveal delay-1">
+          <div class="ac-num">02</div>
+          <div class="ac-title">Đẩy mạnh cải cách hành chính</div>
+          <div class="ac-text">
+            Đơn giản hóa thủ tục hành chính, xây dựng nền hành chính hiện đại
+            minh bạch chuyên nghiệp; đẩy mạnh chuyển đổi số, xây dựng chính phủ
+            điện tử phục vụ người dân tốt hơn.
+          </div>
+        </div>
+        <div class="ac-card reveal delay-2">
+          <div class="ac-num">03</div>
+          <div class="ac-title">Kiểm soát quyền lực nhà nước</div>
+          <div class="ac-text">
+            Tăng cường cơ chế kiểm tra, giám sát nhằm ngăn chặn lạm quyền. Phát
+            huy vai trò Quốc hội, Mặt trận Tổ quốc, báo chí và đặc biệt là nhân
+            dân trong giám sát bộ máy nhà nước.
+          </div>
+        </div>
+        <div class="ac-card reveal delay-3">
+          <div class="ac-num">04</div>
+          <div class="ac-title">Xây dựng đội ngũ cán bộ đủ đức và tài</div>
+          <div class="ac-text">
+            Đội ngũ cán bộ phải có phẩm chất đạo đức tốt, tinh thần trách nhiệm
+            cao, tận tụy phục vụ nhân dân và có trình độ chuyên môn đáp ứng yêu
+            cầu phát triển đất nước.
+          </div>
+        </div>
+      </div>
+
+      <div class="practical-section reveal">
+        <div class="practical-header">
+          <div class="practical-icon">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#c9a84c"
+              stroke-width="1.5"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <circle cx="12" cy="16" r="0.5" fill="#c9a84c" />
+            </svg>
+          </div>
+          <div class="practical-title">Liên hệ thực tiễn</div>
+        </div>
+        <p class="practical-text">
+          Hiện nay, việc triển khai dịch vụ công trực tuyến và xây dựng chính
+          phủ số là minh chứng rõ nét cho việc vận dụng tư tưởng Hồ Chí Minh.
+          Người dân có thể thực hiện nhiều thủ tục như đăng ký cư trú, cấp căn
+          cước công dân, khai báo thuế hoặc nộp hồ sơ trực tuyến mà không cần đi
+          lại nhiều lần — tiết kiệm thời gian, chi phí và hạn chế tiêu cực trong
+          bộ máy hành chính.
+        </p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 4.3.3 -->
+    <section id="section-433" class="full-section">
+      <div class="section-header reveal">
+        <span class="section-num"><strong>Vận dụng · Mục 4.3.3</strong></span>
+        <h2 class="section-title">
+          <span class="line">Phòng, Chống Tham Nhũng</span>
+          <span class="line">Củng Cố Niềm Tin Nhân Dân</span>
+        </h2>
+        <p class="section-intro">
+          Tư tưởng Hồ Chí Minh coi tham ô, lãng phí, quan liêu là
+          <em style="color: var(--red-light)">"giặc nội xâm"</em> — phòng chống
+          tham nhũng là nhiệm vụ thường xuyên, lâu dài.
+        </p>
+      </div>
+
+      <div class="cards-grid">
+        <div class="card reveal delay-1">
+          <svg
+            class="card-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            <polyline points="9 12 11 14 15 10" />
+          </svg>
+          <h3 class="card-title">Giáo dục đạo đức cách mạng</h3>
+          <p class="card-text">
+            Đẩy mạnh học tập và làm theo tư tưởng, đạo đức, phong cách Hồ Chí
+            Minh. Nâng cao tinh thần cần, kiệm, liêm, chính, chí công vô tư.
+            Kiên quyết đấu tranh chống chủ nghĩa cá nhân và lợi ích nhóm.
+          </p>
+        </div>
+        <div class="card reveal delay-2">
+          <svg
+            class="card-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <h3 class="card-title">Hoàn thiện cơ chế kiểm soát</h3>
+          <p class="card-text">
+            Xây dựng cơ chế quản lý minh bạch, công khai; tăng cường thanh tra,
+            kiểm tra, kiểm toán và giám sát của nhân dân nhằm phát hiện và xử lý
+            kịp thời các hành vi tham nhũng, tiêu cực.
+          </p>
+        </div>
+        <div class="card reveal delay-3">
+          <svg
+            class="card-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <polygon
+              points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+            />
+          </svg>
+          <h3 class="card-title">Xử lý nghiêm minh</h3>
+          <p class="card-text">
+            Thực hiện nghiêm
+            <em style="color: var(--gold)"
+              >"không có vùng cấm, không có ngoại lệ"</em
+            >
+            trong đấu tranh phòng chống tham nhũng. Mọi cán bộ vi phạm đều phải
+            bị xử lý theo pháp luật, bất kể chức vụ.
+          </p>
+        </div>
+        <div class="card reveal delay-4">
+          <svg
+            class="card-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 11l-4 4-2-2" />
+          </svg>
+          <h3 class="card-title">Phát huy vai trò nhân dân & báo chí</h3>
+          <p class="card-text">
+            Khuyến khích nhân dân giám sát, tố giác tiêu cực. Phát huy vai trò
+            báo chí và truyền thông trong phát hiện, phản ánh và đấu tranh chống
+            tham nhũng, xây dựng xã hội minh bạch và công bằng.
+          </p>
+        </div>
+      </div>
+
+      <div class="practical-section reveal">
+        <div class="practical-header">
+          <div class="practical-icon">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#c9a84c"
+              stroke-width="1.5"
+            >
+              <path d="M9 18V5l12-2v13" />
+              <circle cx="6" cy="18" r="3" />
+              <circle cx="18" cy="16" r="3" />
+            </svg>
+          </div>
+          <div class="practical-title">Liên hệ thực tiễn</div>
+        </div>
+        <p class="practical-text">
+          Trong thời gian gần đây, nhiều vụ án tham nhũng lớn đã được đưa ra xét
+          xử công khai, nghiêm minh, kể cả đối với cán bộ cấp cao. Điều này thể
+          hiện quyết tâm của Đảng và Nhà nước trong công cuộc làm trong sạch bộ
+          máy. Việc công khai tài sản thu nhập của cán bộ và đẩy mạnh chuyển đổi
+          số trong quản lý hành chính cũng góp phần hạn chế tham nhũng, tiêu cực
+          trong đời sống xã hội hiện nay.
+        </p>
+      </div>
+    </section>
+
+    <!-- MOTTO BANNER -->
+    <div class="motto-banner reveal">
+      <p class="motto-text">
+        Thực hiện tốt phương châm<br />
+        <span class="motto-highlight"
+          >"Dân biết · Dân bàn · Dân làm · Dân kiểm tra · Dân giám sát · Dân thụ
+          hưởng"</span
+        ><br /><br />
+        Lấy sự hài lòng của nhân dân làm thước đo hiệu quả hoạt động
+      </p>
+    </div>
+
+    <footer>
+      <div class="footer-logo">Tư Tưởng Hồ Chí Minh</div>
+      <div class="footer-sub">HCM202 · Chương 4</div>
+      <div class="footer-divider"></div>
+      <div class="footer-info">
+        Chương 4 · Tư tưởng Hồ Chí Minh · Nhà nước của Dân, Do Dân, Vì Dân
+      </div>
+    </footer>
+
+    <script>
+      // PROGRESS BAR
+      const progressBar = document.getElementById("progress-bar");
+      window.addEventListener("scroll", () => {
+        const scrollTop = window.scrollY;
+        const docHeight =
+          document.documentElement.scrollHeight - window.innerHeight;
+        const pct = (scrollTop / docHeight) * 100;
+        progressBar.style.width = pct + "%";
+      });
+
+      // STARS
+      const starsContainer = document.getElementById("stars");
+      for (let i = 0; i < 60; i++) {
+        const star = document.createElement("div");
+        star.classList.add("star");
+        const size = Math.random() * 2 + 1;
+        star.style.cssText = `
+      width: ${size}px; height: ${size}px;
+      top: ${Math.random() * 100}%;
+      left: ${Math.random() * 100}%;
+      --dur: ${Math.random() * 4 + 2}s;
+      --delay: ${Math.random() * 4}s;
+      --op: ${Math.random() * 0.6 + 0.2};
+    `;
+        starsContainer.appendChild(star);
+      }
+
+      // SCROLL ANIMATIONS
+      const reveals = document.querySelectorAll(".reveal, .reveal-left");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -60px 0px" },
+      );
+
+      reveals.forEach((el) => observer.observe(el));
+
+      // PARALLAX HERO
+      window.addEventListener("scroll", () => {
+        const hero = document.getElementById("hero");
+        const scrollY = window.scrollY;
+        if (scrollY < window.innerHeight) {
+          hero.querySelector(".hero-bg").style.transform =
+            `translateY(${scrollY * 0.3}px)`;
+          hero.querySelector(".hero-grid").style.transform =
+            `translateY(${scrollY * 0.15}px)`;
+        }
+      });
+
+      // VIDEO — LOCAL FILE
+      const heroVideo = document.getElementById("hero-video");
+      const videoBg = document.getElementById("hero-video-bg");
+      const heroContent = document.getElementById("hero-content");
+      const videoControls = document.getElementById("video-controls");
+
+      const vcPlayPause = document.getElementById("vc-playpause");
+      const vcPlayIcon = document.getElementById("vc-play-icon");
+      const vcPauseIcon = document.getElementById("vc-pause-icon");
+      const vcRewind = document.getElementById("vc-rewind");
+      const vcForward = document.getElementById("vc-forward");
+      const vcBar = document.getElementById("vc-bar");
+      const vcFill = document.getElementById("vc-fill");
+      const vcTime = document.getElementById("vc-time");
+
+      function fmtTime(s) {
+        const m = Math.floor(s / 60);
+        const sec = Math.floor(s % 60);
+        return `${m}:${sec.toString().padStart(2, "0")}`;
+      }
+
+      function openVideo() {
+        // Animate hero content split apart
+        heroContent.classList.add("video-playing");
+
+        // After text fades out, show video bg
+        setTimeout(() => {
+          videoBg.classList.add("visible");
+          heroVideo.play().catch(() => {});
+          videoControls.classList.add("visible");
+          // switch play/pause icon
+          vcPlayIcon.style.display = "none";
+          vcPauseIcon.style.display = "";
+        }, 650);
+      }
+
+      function closeVideo() {
+        heroVideo.pause();
+        heroVideo.currentTime = 0;
+        videoControls.classList.remove("visible");
+
+        // Fade out video
+        videoBg.classList.remove("visible");
+
+        // Remove playing state → CSS transitions restore positions
+        heroContent.classList.remove("video-playing");
+        heroContent.classList.remove("video-ended");
+
+        // Reset icon
+        vcPlayIcon.style.display = "";
+        vcPauseIcon.style.display = "none";
+      }
+
+      // Play / Pause toggle
+      vcPlayPause.addEventListener("click", () => {
+        if (heroVideo.paused) {
+          heroVideo.play();
+          vcPlayIcon.style.display = "none";
+          vcPauseIcon.style.display = "";
+        } else {
+          heroVideo.pause();
+          vcPlayIcon.style.display = "";
+          vcPauseIcon.style.display = "none";
+        }
+      });
+
+      // Rewind 10s
+      vcRewind.addEventListener("click", () => {
+        heroVideo.currentTime = Math.max(0, heroVideo.currentTime - 10);
+      });
+
+      // Forward 10s
+      vcForward.addEventListener("click", () => {
+        heroVideo.currentTime = Math.min(
+          heroVideo.duration || 0,
+          heroVideo.currentTime + 10,
+        );
+      });
+
+      // Progress bar update
+      heroVideo.addEventListener("timeupdate", () => {
+        if (!heroVideo.duration) return;
+        const pct = (heroVideo.currentTime / heroVideo.duration) * 100;
+        vcFill.style.width = pct + "%";
+        vcTime.textContent = `${fmtTime(heroVideo.currentTime)} / ${fmtTime(heroVideo.duration)}`;
+      });
+
+      // Seek on bar click
+      vcBar.addEventListener("click", (e) => {
+        const rect = vcBar.getBoundingClientRect();
+        const ratio = (e.clientX - rect.left) / rect.width;
+        heroVideo.currentTime = ratio * (heroVideo.duration || 0);
+      });
+
+      // Video ended → restore hero content
+      heroVideo.addEventListener("ended", () => {
+        videoControls.classList.remove("visible");
+        videoBg.classList.remove("visible");
+        heroContent.classList.remove("video-playing");
+        heroContent.classList.add("video-ended");
+        vcPlayIcon.style.display = "";
+        vcPauseIcon.style.display = "none";
+        // Remove video-ended class after animation completes so it's reusable
+        setTimeout(() => heroContent.classList.remove("video-ended"), 900);
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && videoBg.classList.contains("visible"))
+          closeVideo();
+      });
+    </script>
+  </body>
+</html>
