@@ -1029,6 +1029,61 @@
         color: whitesmoke;
       }
 
+      .source-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .source-item {
+        background: rgba(7, 11, 20, 0.55);
+        border: 1px solid rgba(201, 168, 76, 0.16);
+        border-radius: 14px;
+        padding: 16px 18px;
+        min-height: 84px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 6px;
+      }
+
+      .source-item a {
+        display: inline-block;
+        font-family: "Playfair Display", serif;
+        font-size: 20px;
+        color: var(--gold);
+        font-weight: 700;
+        text-decoration: none;
+        transition:
+          color 0.2s ease,
+          transform 0.2s ease;
+      }
+
+      .source-item a:hover {
+        color: var(--gold-light);
+        transform: translateX(2px);
+      }
+
+      .source-item span {
+        font-size: 16px;
+        color: #cfc8be;
+        line-height: 1.6;
+      }
+
+      .academic-note {
+        margin-top: 16px;
+        font-size: 18px;
+        color: #e7e0d5;
+        line-height: 1.9;
+      }
+
+      @media (max-width: 900px) {
+        .source-list {
+          grid-template-columns: 1fr;
+        }
+      }
+
       /* PARTY BUILDING SECTION */
       .five-pillars {
         display: flex;
@@ -1297,6 +1352,7 @@
         <li><a href="#section-423">Trong sạch</a></li>
         <li><a href="#section-43">Vận dụng</a></li>
         <li><a href="#section-433">Phòng chống</a></li>
+        <li><a href="#section-academic">Liêm chính</a></li>
       </ul>
     </nav>
 
@@ -1473,6 +1529,17 @@
             <div class="toc-title">Phòng, chống tham nhũng</div>
             <div class="toc-desc">
               Củng cố niềm tin của nhân dân vào chế độ và pháp luật
+            </div>
+          </div>
+          <div class="toc-arrow">›</div>
+        </a>
+        <a href="#section-academic" class="toc-item reveal delay-4">
+          <div class="toc-roman">V</div>
+          <div class="toc-text">
+            <div class="toc-title">Liêm chính học thuật</div>
+            <div class="toc-desc">
+              Mô tả quy trình xây dựng nội dung, nguồn tham khảo và cách tổng
+              hợp trên NotebookLM
             </div>
           </div>
           <div class="toc-arrow">›</div>
@@ -1979,6 +2046,160 @@
           máy. Việc công khai tài sản thu nhập của cán bộ và đẩy mạnh chuyển đổi
           số trong quản lý hành chính cũng góp phần hạn chế tham nhũng, tiêu cực
           trong đời sống xã hội hiện nay.
+        </p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION LIEM CHINH HOC THUAT -->
+    <section id="section-academic" class="full-section">
+      <div class="section-header reveal">
+        <h2 class="section-title">
+          <span class="line">Liêm Chính Học Thuật</span>
+        </h2>
+      </div>
+
+      <div class="cards-grid">
+        <div class="card reveal delay-1">
+          <svg
+            class="card-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <path d="M4 19.5V6a2 2 0 0 1 2-2h12v15.5" />
+            <path d="M6 4v15.5" />
+            <path d="M8.5 8h6" />
+            <path d="M8.5 12h7.5" />
+          </svg>
+          <h3 class="card-title">1. Bám vào giáo trình gốc</h3>
+          <p class="card-text">
+            Nội dung cốt lõi được lấy từ Giáo trình Tư tưởng Hồ Chí Minh 2021.
+            Đây là lớp nền giúp xác định đúng phạm vi kiến thức, thuật ngữ và hệ
+            thống ý chính cần trình bày trên trang.
+          </p>
+        </div>
+        <div class="card reveal delay-2">
+          <svg
+            class="card-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <circle cx="12" cy="12" r="9" />
+            <path d="M8 12h8" />
+            <path d="M12 8v8" />
+          </svg>
+          <h3 class="card-title">2. Đối chiếu nguồn chính thống</h3>
+          <p class="card-text">
+            Bốn nguồn tham khảo chính thống được dùng để kiểm tra, mở rộng và bổ
+            sung góc nhìn: trang tư liệu của Đảng Cộng sản Việt Nam, Tạp chí
+            Cộng sản, Bộ Nội vụ và Nội chính Việt Nam.
+          </p>
+        </div>
+        <div class="card reveal delay-3">
+          <svg
+            class="card-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <path d="M7 7h10v10H7z" />
+            <path d="M10 10h4" />
+            <path d="M10 14h4" />
+            <path d="M5 5h2" />
+            <path d="M17 5h2" />
+          </svg>
+          <h3 class="card-title">3. Tổng hợp bằng NotebookLM</h3>
+          <p class="card-text">
+            Sau khi có nguồn, nội dung được đưa vào NotebookLM để hệ thống hóa
+            lại thành các ý ngắn, rõ và dễ trình bày. Cách này giúp rút gọn ý
+            nhưng vẫn giữ đúng tinh thần học thuật.
+          </p>
+        </div>
+      </div>
+
+      <div class="practical-section reveal">
+        <div class="practical-header">
+          <div class="practical-icon">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#c9a84c"
+              stroke-width="1.5"
+            >
+              <path d="M12 2l3 7h7l-5.5 4.2L18 20l-6-3.8L6 20l1.5-6.8L2 9h7z" />
+            </svg>
+          </div>
+          <div class="practical-title">Nguồn sử dụng</div>
+        </div>
+        <div class="source-list">
+          <div class="source-item">
+            <a
+              href="https://tulieuvankien.dangcongsan.vn/c-mac-angghen-lenin-ho-chi-minh/ho-chi-minh/nghien-cuu-hoc-tap-tu-tuong/moi-quan-he-giua-dang-va-dan-trong-tu-tuong-ho-chi-minh-tiep-2056"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Mối quan hệ giữa Đảng và dân trong tư tưởng Hồ Chí Minh
+            </a>
+            <span>
+              Là nguồn nền tảng để làm rõ mối quan hệ giữa Đảng và dân trong tư
+              tưởng Hồ Chí Minh.
+            </span>
+          </div>
+          <div class="source-item">
+            <a
+              href="https://www.tapchicongsan.org.vn/chinh-tri-xay-dung-dang/-/2018/819669/tu-tuong-ho-chi-minh-ve-dan-chu-va-yeu-cau-cung-co-moi-quan-he-giua-nha-nuoc-va-nhan-dan-trong-giai-doan-hien-nay.aspx"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Tư tưởng Hồ Chí Minh về dân chủ và mối quan hệ giữa Nhà nước và
+              nhân dân
+            </a>
+            <span>
+              Dùng để bổ sung quan điểm về dân chủ và mối quan hệ giữa Nhà nước
+              và nhân dân.
+            </span>
+          </div>
+          <div class="source-item">
+            <a
+              href="https://moha.gov.vn/tin-tuc/hoc-tap-va-lam-theo-tu-tuong-doi-moi-sang-tao-cua-chu-tich-ho-chi-minh-trong-thoi-ky-moi---id1115"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Học tập và làm theo tư tưởng đổi mới sáng tạo của Chủ tịch Hồ Chí
+              Minh trong thời kỳ mới
+            </a>
+            <span>
+              Cung cấp góc nhìn về đổi mới sáng tạo, học tập và vận dụng tư
+              tưởng Hồ Chí Minh trong thời kỳ mới.
+            </span>
+          </div>
+          <div class="source-item">
+            <a
+              href="https://noichinh.vn/nghien-cuu-trao-doi/202205/tu-tuong-ho-chi-minh-ve-dang-ta-la-dao-duc-la-van-minh-gia-tri-van-dung-trong-xay-dung-chinh-don-dang-hien-nay-310975/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Tư tưởng Hồ Chí Minh về Đảng ta là đạo đức, là văn minh: giá trị
+              vận dụng trong xây dựng, chỉnh đốn Đảng hiện nay
+            </a>
+            <span>
+              Hỗ trợ nội dung về Đảng là đạo đức, là văn minh và giá trị vận
+              dụng trong xây dựng, chỉnh đốn Đảng.
+            </span>
+          </div>
+        </div>
+        <p class="academic-note">
+          Sau khi đối chiếu với Giáo trình Tư tưởng Hồ Chí Minh 2021, các ý
+          chính được đưa vào NotebookLM để tổng hợp, rút gọn và biên soạn lại
+          theo bố cục dễ đọc trên trang web.
         </p>
       </div>
     </section>
